@@ -62,7 +62,7 @@ function onClickHandler(info, tab) {
                 
             var login = 'username=' + items.username + '&password=' +  items.password;
                 
-            //alert(url);
+            // alert(url);
             //alert(login);
                 
             // do a background post
@@ -71,9 +71,14 @@ function onClickHandler(info, tab) {
             http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             
             http.onreadystatechange = function() {
-                if(http.readyState == 4 && http.status == 200) {
-                    // alert(http.responseText);
-                }
+                if(http.readyState == 4) {
+					if(http.status == 200) {
+						alert(http.responseText);
+					}
+					else {
+						alert('ERROR: PBX click_2_call; HTTP status: '+http.status);
+					}
+				}
             }
             http.send(login);
         }
