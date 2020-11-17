@@ -34,6 +34,7 @@ var settings = [
     'dest_cid_name', 
     'dest_cid_number',
     'src',
+	'auto_answer',
     'rec',
     'ringback'    
 ];       
@@ -49,29 +50,35 @@ function onClickHandler(info, tab) {
         }
         else {
             //console.log("Calling: " + phoneNum);
-            url = items.domain + "/app/click_to_call/click_to_call.php?src_cid_name=WebDialer&auto_answer=false" +
+            url = items.domain + "/app/click_to_call/click_to_call.php?src_cid_name=WebDialer" +
                 '&src_cid_number='   + phoneNum +
                 '&dest_cid_name='    + items.dest_cid_name +
                 '&dest_cid_number='  + items.dest_cid_number +
                 '&src='              + items.src +
                 '&dest='             + phoneNum +
+                '&auto_answer='      + items.auto_answer +
                 '&rec='              + items.rec +
                 '&ringback='         + items.ringback;
                 
             var login = 'username=' + items.username + '&password=' +  items.password;
                 
-            //alert(url);
+            // alert(url);
             //alert(login);
                 
-            // doa background post
+            // do a background post
             var http = new XMLHttpRequest();
             http.open("POST", url, true);
             http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             
             http.onreadystatechange = function() {
-                if(http.readyState == 4 && http.status == 200) {
-                    // alert(http.responseText);
-                }
+                if(http.readyState == 4) {
+					if(http.status == 200) {
+						alert(http.responseText);
+					}
+					else {
+						alert('ERROR: PBX click_2_call; HTTP status: '+http.status);
+					}
+				}
             }
             http.send(login);
         }
