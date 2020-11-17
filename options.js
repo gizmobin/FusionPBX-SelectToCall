@@ -12,7 +12,8 @@ var settings = {
     'dest_cid_number'   : '123-555-1234',
     'src'               : '1234',
     'rec'               : 'false',
-    'ringback'          : 'us-ring'    
+    'ringback'          : 'us-ring',  
+	'auto_answer'       : 'true'
 };   
 
 function loadOptions() {
@@ -25,24 +26,20 @@ function loadOptions() {
         document.getElementById('dest_cid_name').value = items.dest_cid_name;
         document.getElementById('dest_cid_number').value = items.dest_cid_number;
         document.getElementById('src').value = items.src;
+        document.getElementById('auto_answer').value = items.auto_answer;
         document.getElementById('rec').value = items.rec;
         document.getElementById('ringback').value = items.ringback;
     });
 
-    // records call
-	var recSelect = document.getElementById('rec');
-	for (var i = 0; i < recSelect.children.length; i++) {
-		var child = recSelect.children[i];
-		if (child.value == rec) {
-			child.selected = 'true';
-			break;
-		}
-	}
+	updateSelect('auto_answer');  // auto-answer
+	updateSelect('rec');		  // records call
+	updateSelect('ringback');	  // ringback
+}
 
-	// ringback
-	var ringbackSelect = document.getElementById('ringback');
-	for (var i = 0; i < ringbackSelect.children.length; i++) {
-		var child = ringbackSelect.children[i];
+function updateSelect(elemID) {
+	var elem = document.getElementById(elemID);
+	for (var i = 0; i < elem.children.length; i++) {
+		var child = elem.children[i];
 		if (child.value == ringback) {
 			child.selected = 'true';
 			break;
@@ -58,6 +55,7 @@ function saveOptions() {
 	data['dest_cid_name'] =  document.getElementById('dest_cid_name').value;
 	data['dest_cid_number'] =  document.getElementById('dest_cid_number').value;
 	data['src'] =  document.getElementById('src').value;
+	data['auto_answer'] =  document.getElementById('auto_answer').value;
 	data['rec'] =  document.getElementById('rec').value;
 	data['ringback'] =  document.getElementById('ringback').value;
     
