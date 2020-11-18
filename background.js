@@ -73,7 +73,7 @@ function onClickHandler(info, tab) {
             http.onreadystatechange = function() {
                 if(http.readyState == 4) {
 					if(http.status == 200) {
-						alert(http.responseText);
+						// alert(http.responseText);
 					}
 					else {
 						alert('ERROR: PBX click_2_call; HTTP status: '+http.status);
